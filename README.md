@@ -25,7 +25,7 @@ composed one to folder output
  
  Then the output image will be in the output folder.
  
- # Issues
+# Issues
  
- Some pattern is not existing in src/main/resources/patterns. I need to add it later.
+Some pattern is not existing in src/main/resources/patterns. I need to add it later.
  
