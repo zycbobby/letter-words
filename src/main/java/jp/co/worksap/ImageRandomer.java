@@ -19,19 +19,26 @@ public class ImageRandomer {
     private static List<File> images = new ArrayList<File>();
 
     static {
-        // load all images
-        File base = new File(IMAGE_BASE);
-        Collection<File> files = FileUtils.listFiles(base, new String[]{"jpg", "png"}, false);
-        images.addAll(files);
-        System.out.println("" + files.size() + " images loaded");
-        if (images.size() == 0) {
-            try {
-                throw new IOException("no images loaded");
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.exit(-1);
+        try {
+            // load all images
+            File base = new File(IMAGE_BASE);
+            if (!base.exists() || base.isFile()) {
+                if (!base.mkdir()) {
+                    throw new IOException("cannot create folder images");
+                }
+                FileUtils.moveFile(new File("sample.png"), new File(base, "sample.png"));
             }
+            Collection<File> files = FileUtils.listFiles(base, new String[]{"jpg", "png"}, false);
+            images.addAll(files);
+            System.out.println("" + files.size() + " images loaded");
+            if (images.size() == 0) {
+                throw new IOException("no images loaded");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(-1);
         }
+
     }
 
     private static int cursor = 0;
